@@ -1,0 +1,57 @@
+.jumbotron{
+    background-image: url("../../resources/Images/NASA.jpg");
+    background-size: 100% auto;
+    color: white;
+}
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */ 
+    z-index: 1; /* Sit on top */
+    left: 35%;
+    top: 5%;
+    width: 35%; /* Full width */
+    height: 25%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    /* background-color: rgb(0,0,0); /* Fallback color */ 
+    background-color: grey; /* Black w/ opacity */
+    opacity: 0.75;
+    color: yellow;
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    /* padding: 20px; */
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.success, .error {
+    color: white;
+    padding: 5px;
+    margin: 5px 0 15px 0;
+  }
+
+  .success {
+    background: green;
+  }
+
+  .error {
+    background: red;
+  }
