@@ -1,5 +1,53 @@
   $(document).ready(function() {
 
+    // Initialize Firebase
+var config = {
+  apiKey: "AIzaSyCVkzGRau6P1vC-_ZW-oTiOIVdv9v6bReQ",
+  authDomain: "gitslack-7be5e.firebaseapp.com",
+  databaseURL: "https://gitslack-7be5e.firebaseio.com",
+  projectId: "gitslack-7be5e",
+  storageBucket: "gitslack-7be5e.appspot.com",
+  messagingSenderId: "502584640140"
+};
+firebase.initializeApp(config);
+
+const database = firebase.database();
+
+        //slack API variables
+        var testURL = "https://hooks.slack.com/services/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";
+        var clientID = "358300664629.358301327749";
+        var clientSecret = "da84e04076a906e05c9f3370d14e5406";
+        
+        //test if add button clicked on last load
+        if(localStorage.getItem("user-repo") != "") {
+            //store channel name
+            const gitUser = localStorage.getItem("user-user");
+            const gitRepo = localStorage.getItem("user-repo");
+            const gitBranch = localStorage.getItem("user-branch");
+            localStorage.setItem("user-user", "");
+            localStorage.setItem("user-repor", "");
+            localStorage.setItem("user-branch", "");
+            
+            //store slack code in code variable
+            var url_string = window.location.href; //window.location.href
+            var url = new URL(url_string);
+            var temp_code = url.searchParams.get("code"); //test
+    
+            //get the webhook (hooya!)
+            var getCallURL = "https://slack.com/api/oauth.access?client_id=" + clientID + "&client_secret=" + clientSecret + "&code=" + temp_code; 
+            $.ajax({
+                type: "GET",
+                url: getCallURL
+            }).done(function(response) {
+                var webhook_url = response.incoming_webhook.url;
+                testURL = webhook_url;
+                const userRepoBranchCardUI = new UserRepoBranchCard(gitUser, gitRepo, gitBranch, webhook_url);
+                // Push Card Info to Firebase
+                userRepoBranchCardUI.pushToFirebase(userRepoBranchCardUI);
+                });
+            });
+        }
+
   // On load, add a new card is hidden.
   // $("#repo-input").hide();
 
@@ -53,19 +101,6 @@ const repoNameUI = document.getElementById('repo-name');
 const branchUI = document.getElementById('branch-ui');
 const submitBtn = document.getElementById('btn-input');
 const clearInputForm = document.getElementById('clear-results');
-
-// Initialize Firebase
-var config = {
-  apiKey: "AIzaSyCVkzGRau6P1vC-_ZW-oTiOIVdv9v6bReQ",
-  authDomain: "gitslack-7be5e.firebaseapp.com",
-  databaseURL: "https://gitslack-7be5e.firebaseio.com",
-  projectId: "gitslack-7be5e",
-  storageBucket: "gitslack-7be5e.appspot.com",
-  messagingSenderId: "502584640140"
-};
-firebase.initializeApp(config);
-
-const database = firebase.database();
 
 
 // test push just uncomment lines below
@@ -326,31 +361,34 @@ UI.prototype.showAlert = function(message, className) {
 document.getElementById('btn-input').addEventListener('click', function(e){
   e.preventDefault();
 
-  // Construct UI
-  var ui = new UI();
-
-  // Get form values
   const gitUser = gitUserUI.value;
   const gitRepo = repoNameUI.value;
   const gitBranch = branchUI.value;
+
+    // Construct UI
+    var ui = new UI();
  
-  // Input Validation
-  if(gitUser === '' || gitRepo === '' || gitBranch === '') {
-    // Error alert
-    ui.showAlert('Please fill in all fields', 'error');
-  } else {
-    // Instantiate Card
-    const userRepoBranchCardUI = new UserRepoBranchCard(gitUser, gitRepo, gitBranch);
-    // Push Card Info to Firebase
-    userRepoBranchCardUI.pushToFirebase(userRepoBranchCardUI);  
-  
-  // Show Success
-  ui.showAlert('Repo Added!', 'success');
-  
-  // Clear Fields
-  ui.clearInputFromForm();
-  }
-  
+    // Input Validation
+    if(gitUser === '' || gitRepo === '' || gitBranch === '') {
+      // Error alert
+      ui.showAlert('Please fill in all fields', 'error');
+    } else {
+      // Instantiate Card
+    
+    // Show Success
+    ui.showAlert('Repo Added!', 'success');
+    
+    // Clear Fields
+    ui.clearInputFromForm();
+    }
+    
+        if(gitUser != "") {
+            localStorage.setItem("user-name", gitUser);
+            localStorage.setItem("user-repo", gitRepo);
+            localStorage.setItem("user-branch", gitBranch);
+            $("#btn-input").text("");
+            $("#btn-input").append("<a href='https://slack.com/oauth/authorize?client_id=358300664629.358301327749&scope=incoming-webhook'><img alt='Add to Slack' height='40' width='139' src='https://platform.slack-edge.com/img/add_to_slack.png'srcset='https://platform.slack-edge.com/img/add_to_slack.png 1x,https://platform.slack-edge.com/img/add_to_slack@2x.png 2x' /></a>");
+        }
     e.preventDefault();
   });
  
