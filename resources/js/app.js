@@ -1,4 +1,4 @@
-$(document).ready(function() {
+  $(document).ready(function() {
 
   // On load, add a new card is hidden.
   // $("#repo-input").hide();
@@ -55,13 +55,13 @@ const submitBtn = document.getElementById('btn-input');
 const clearInputForm = document.getElementById('clear-results');
 
 // Initialize Firebase
-const config = {
-  apiKey: "AIzaSyDqM96DQL3V6Hc94P1uBAGyWiML-moreWM",
-  authDomain: "gitslacked2.firebaseapp.com",
-  databaseURL: "https://gitslacked2.firebaseio.com",
-  projectId: "gitslacked2",
-  storageBucket: "gitslacked2.appspot.com",
-  messagingSenderId: "515555071574"
+var config = {
+  apiKey: "AIzaSyCVkzGRau6P1vC-_ZW-oTiOIVdv9v6bReQ",
+  authDomain: "gitslack-7be5e.firebaseapp.com",
+  databaseURL: "https://gitslack-7be5e.firebaseio.com",
+  projectId: "gitslack-7be5e",
+  storageBucket: "gitslack-7be5e.appspot.com",
+  messagingSenderId: "502584640140"
 };
 firebase.initializeApp(config);
 
