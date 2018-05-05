@@ -39,6 +39,7 @@ const database = firebase.database();
                 type: "GET",
                 url: getCallURL
             }).done(function(response) {
+              console.log(response);
                 var webhook_url = response.incoming_webhook.url;
                 testURL = webhook_url;
                 const userRepoBranchCardUI = new UserRepoBranchCard(gitUser, gitRepo, gitBranch, webhook_url);
