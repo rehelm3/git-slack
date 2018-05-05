@@ -45,8 +45,7 @@ const database = firebase.database();
                 // Push Card Info to Firebase
                 userRepoBranchCardUI.pushToFirebase(userRepoBranchCardUI);
                 });
-            });
-        }
+            }
 
   // On load, add a new card is hidden.
   // $("#repo-input").hide();
