@@ -1,5 +1,5 @@
   $(document).ready(function() {
-    console.log("version: 3.6");
+    console.log("version: 3.7");
 
     // Initialize Firebase
 var config = {
@@ -216,7 +216,8 @@ UserRepoBranchCard.prototype.pushToFirebase = function(userRepoBranchCardUI) {
   var newSnap = database.ref().push({
     user: userRepoBranchCardUI.user,
     repo: userRepoBranchCardUI.repo,
-    branch: userRepoBranchCardUI.branch
+    branch: userRepoBranchCardUI.branch,
+    webhook: userRepoBranchCardUI.webhook_url
   })
 
   var firebasekeyNewSnap = newSnap.name();
