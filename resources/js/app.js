@@ -44,6 +44,7 @@ const database = firebase.database();
                 const userRepoBranchCardUI = new UserRepoBranchCard(gitUser, gitRepo, gitBranch, webhook_url);
                 // Push Card Info to Firebase
                 userRepoBranchCardUI.pushToFirebase(userRepoBranchCardUI);
+                ui.showAlert('Repo Added!', 'success');
                 });
           }
 
@@ -337,24 +338,24 @@ UI.prototype.deleteCard = function(target){
   } 
 }
 
-// // Show Alert
-// UI.prototype.showAlert = function(message, className) {
-//   // Create div
-//   const div = document.createElement('div');
-//   // Add Classes
-//   div.className = `alert ${className}`;
-//   // Add text
-//   div.appendChild(document.createTextNode(message));
-//   // Get parent
-//   const container = document.querySelector('.container2');
-//   const form = document.querySelector('#repo-input');
-//   // Insert alert
-//   container.insertBefore(div, form);
-//   // Timeout after 3 seconds
-//   setTimeout(function(){
-//     document.querySelector('.alert').remove();
-//   }, 3000);
-// }
+// Show Alert
+UI.prototype.showAlert = function(message, className) {
+  // Create div
+  const div = document.createElement('div');
+  // Add Classes
+  div.className = `alert ${className}`;
+  // Add text
+  div.appendChild(document.createTextNode(message));
+  // Get parent
+  const container = document.querySelector('.container2');
+  const form = document.querySelector('#repo-input');
+  // Insert alert
+  container.insertBefore(div, form);
+  // Timeout after 3 seconds
+  setTimeout(function(){
+    document.querySelector('.alert').remove();
+  }, 3000);
+}
 
 // Add event listener for Add Repo
 document.getElementById('btn-input').addEventListener('click', function(e){
@@ -370,12 +371,11 @@ document.getElementById('btn-input').addEventListener('click', function(e){
     // Input Validation
     if(gitUser === '' || gitRepo === '' || gitBranch === '') {
       // Error alert
-      ui.showAlert('Please fill in all fields', 'error');
+      
     } else {
       // Instantiate Card
     
     // Show Success
-    ui.showAlert('Repo Added!', 'success');
     
     // Clear Fields
     ui.clearInputFromForm();
