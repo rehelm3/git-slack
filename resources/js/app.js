@@ -1,5 +1,5 @@
   $(document).ready(function() {
-    console.log("version: 3.1");
+    console.log("version: 3.2");
 
     // Initialize Firebase
 var config = {
@@ -386,8 +386,8 @@ document.getElementById('btn-input').addEventListener('click', function(e){
             localStorage.setItem("user-name", gitUser);
             localStorage.setItem("user-repo", gitRepo);
             localStorage.setItem("user-branch", gitBranch);
-            $("#btn-input").text("");
-            $("#btn-input").append("<a href='https://slack.com/oauth/authorize?client_id=301088776592.358422362097&scope=incoming-webhook'><img alt='Add to Slack' height='40' width='139' src='https://platform.slack-edge.com/img/add_to_slack.png' srcset='https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x' /></a>");
+            $("#btn-input").remove();
+            $("#btn-input").prepend("<a href='https://slack.com/oauth/authorize?client_id=301088776592.358422362097&scope=incoming-webhook'><img alt='Add to Slack' height='40' width='139' src='https://platform.slack-edge.com/img/add_to_slack.png' srcset='https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x' /></a>");
         }
     e.preventDefault();
   });
