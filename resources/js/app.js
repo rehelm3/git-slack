@@ -15,17 +15,17 @@ const database = firebase.database();
 
         //slack API variables
         var testURL = "https://hooks.slack.com/services/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";
-        var clientID = "358300664629.358301327749";
-        var clientSecret = "da84e04076a906e05c9f3370d14e5406";
+        var clientID = "301088776592.358422362097";
+        var clientSecret = "902a482382c63d6f7dcfe549407ce5a6";
         
         //test if add button clicked on last load
         if(localStorage.getItem("user-repo") != "") {
             //store channel name
-            const gitUser = localStorage.getItem("user-user");
+            const gitUser = localStorage.getItem("user-name");
             const gitRepo = localStorage.getItem("user-repo");
             const gitBranch = localStorage.getItem("user-branch");
-            localStorage.setItem("user-user", "");
-            localStorage.setItem("user-repor", "");
+            localStorage.setItem("user-name", "");
+            localStorage.setItem("user-repo", "");
             localStorage.setItem("user-branch", "");
             
             //store slack code in code variable
@@ -39,14 +39,13 @@ const database = firebase.database();
                 type: "GET",
                 url: getCallURL
             }).done(function(response) {
-              console.log(response);
                 var webhook_url = response.incoming_webhook.url;
                 testURL = webhook_url;
                 const userRepoBranchCardUI = new UserRepoBranchCard(gitUser, gitRepo, gitBranch, webhook_url);
                 // Push Card Info to Firebase
                 userRepoBranchCardUI.pushToFirebase(userRepoBranchCardUI);
                 });
-            }
+          }
 
   // On load, add a new card is hidden.
   // $("#repo-input").hide();
@@ -129,7 +128,7 @@ database.ref().on("child_added", function (childSnapshot) {
  var userRepoBranchCard = new UserRepoBranchCard(user, repo, branch, cardObjName);
 // var ui = new UI();
   // Do the first 2 Git API calls and add to the userRepoBranchCard object
-  gitconnect.getUserRepoBranch(user, repo, branch)
+  gitconnect.getUserRepoBranch(user, repo, branch, webhook_url)
     .then(data => {
       if(data.profile.message === 'Not Found'){
         
@@ -227,7 +226,7 @@ UserRepoBranchCard.prototype.pushToFirebase = function(userRepoBranchCardUI) {
 //  var userRepoBranchCard = new UserRepoBranchCard(user, repo, branch, cardObjName);
 
   // Do the first 2 Git API calls and add to the userRepoBranchCard object
-  gitconnect.getUserRepoBranch(user, repo, branch)
+  gitconnect.getUserRepoBranch(user, repo, branch, webhook_url)
     .then(data => {
       if(data.profile.message === 'Not Found'){
         ui.showAlert('User not found', 'alert alert-danger');
@@ -387,7 +386,7 @@ document.getElementById('btn-input').addEventListener('click', function(e){
             localStorage.setItem("user-repo", gitRepo);
             localStorage.setItem("user-branch", gitBranch);
             $("#btn-input").text("");
-            $("#btn-input").append("<a href='https://slack.com/oauth/authorize?client_id=358300664629.358301327749&scope=incoming-webhook'><img alt='Add to Slack' height='40' width='139' src='https://platform.slack-edge.com/img/add_to_slack.png'srcset='https://platform.slack-edge.com/img/add_to_slack.png 1x,https://platform.slack-edge.com/img/add_to_slack@2x.png 2x' /></a>");
+            $("#btn-input").append("<a href='https://slack.com/oauth/authorize?client_id=301088776592.358422362097&scope=incoming-webhook'><img alt='Add to Slack' height='40' width='139' src='https://platform.slack-edge.com/img/add_to_slack.png' srcset='https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x' /></a>");
         }
     e.preventDefault();
   });
@@ -395,7 +394,7 @@ document.getElementById('btn-input').addEventListener('click', function(e){
 
 
 // Event Delegation - Event Listener for Card Delete
-document.getElementById('card-space').addEventListener('click', function(e){
+document.getElementById('card-space').addEventListener('click', function(e) {
   // instantiate ui object
   const ui = new UI();
   ui.deleteCard(e.target);
