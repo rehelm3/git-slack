@@ -128,7 +128,7 @@ database.ref().on("child_added", function (childSnapshot) {
  var userRepoBranchCard = new UserRepoBranchCard(user, repo, branch, cardObjName);
 // var ui = new UI();
   // Do the first 2 Git API calls and add to the userRepoBranchCard object
-  gitconnect.getUserRepoBranch(user, repo, branch, webhook_url)
+  gitconnect.getUserRepoBranch(user, repo, branch)
     .then(data => {
       if(data.profile.message === 'Not Found'){
         
@@ -337,24 +337,24 @@ UI.prototype.deleteCard = function(target){
   } 
 }
 
-// Show Alert
-UI.prototype.showAlert = function(message, className) {
-  // Create div
-  const div = document.createElement('div');
-  // Add Classes
-  div.className = `alert ${className}`;
-  // Add text
-  div.appendChild(document.createTextNode(message));
-  // Get parent
-  const container = document.querySelector('.container2');
-  const form = document.querySelector('#repo-input');
-  // Insert alert
-  container.insertBefore(div, form);
-  // Timeout after 3 seconds
-  setTimeout(function(){
-    document.querySelector('.alert').remove();
-  }, 3000);
-}
+// // Show Alert
+// UI.prototype.showAlert = function(message, className) {
+//   // Create div
+//   const div = document.createElement('div');
+//   // Add Classes
+//   div.className = `alert ${className}`;
+//   // Add text
+//   div.appendChild(document.createTextNode(message));
+//   // Get parent
+//   const container = document.querySelector('.container2');
+//   const form = document.querySelector('#repo-input');
+//   // Insert alert
+//   container.insertBefore(div, form);
+//   // Timeout after 3 seconds
+//   setTimeout(function(){
+//     document.querySelector('.alert').remove();
+//   }, 3000);
+// }
 
 // Add event listener for Add Repo
 document.getElementById('btn-input').addEventListener('click', function(e){
