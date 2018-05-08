@@ -1,5 +1,5 @@
   $(document).ready(function() {
-    console.log("version: 3.2");
+    console.log("version: 3.3");
 
     // Initialize Firebase
 var config = {
