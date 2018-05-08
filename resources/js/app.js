@@ -1,5 +1,5 @@
   $(document).ready(function() {
-    console.log("version: 3.8");
+    console.log("version: 3.9");
 
     // Initialize Firebase
 var config = {
@@ -128,10 +128,10 @@ database.ref().on("child_added", function (childSnapshot) {
   // Instantiate UserBranchRepoCard object
   let cardObjName = "card" + firebasechildkey;
   // create initial object
- var userRepoBranchCard = new UserRepoBranchCard(user, repo, branch, cardObjName);
+ var userRepoBranchCard = new UserRepoBranchCard(user, repo, branch, cardObjName, webhook_url);
 // var ui = new UI();
   // Do the first 2 Git API calls and add to the userRepoBranchCard object
-  gitconnect.getUserRepoBranch(user, repo, branch)
+  gitconnect.getUserRepoBranch(user, repo, branch, webhook_url)
     .then(data => {
       if(data.profile.message === 'Not Found'){
         
