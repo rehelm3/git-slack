@@ -205,10 +205,11 @@ database.ref().on("child_added", function (childSnapshot) {
 })
 
 
-function UserRepoBranchCard(user, repo, branch) {
+function UserRepoBranchCard(user, repo, branch, webhook_url) {
   this.user = user;
   this.repo = repo;
   this.branch = branch;
+  this.webhook_url = webhook_url;
 };
 
 
