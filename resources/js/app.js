@@ -128,10 +128,10 @@ database.ref().on("child_added", function (childSnapshot) {
   // Instantiate UserBranchRepoCard object
   let cardObjName = "card" + firebasechildkey;
   // create initial object
- var userRepoBranchCard = new UserRepoBranchCard(user, repo, branch, cardObjName, webhook_url);
+ var userRepoBranchCard = new UserRepoBranchCard(user, repo, branch, cardObjName);
 // var ui = new UI();
   // Do the first 2 Git API calls and add to the userRepoBranchCard object
-  gitconnect.getUserRepoBranch(user, repo, branch, webhook_url)
+  gitconnect.getUserRepoBranch(user, repo, branch)
     .then(data => {
       if(data.profile.message === 'Not Found'){
         
@@ -205,11 +205,10 @@ database.ref().on("child_added", function (childSnapshot) {
 })
 
 
-function UserRepoBranchCard(user, repo, branch, webhook_url) {
+function UserRepoBranchCard(user, repo, branch) {
   this.user = user;
   this.repo = repo;
   this.branch = branch;
-  this.webhook_url = webhook_url;
 };
 
 
@@ -231,7 +230,7 @@ UserRepoBranchCard.prototype.pushToFirebase = function(userRepoBranchCardUI) {
 //  var userRepoBranchCard = new UserRepoBranchCard(user, repo, branch, cardObjName);
 
   // Do the first 2 Git API calls and add to the userRepoBranchCard object
-  gitconnect.getUserRepoBranch(user, repo, branch, webhook_url)
+  gitconnect.getUserRepoBranch(user, repo, branch)
     .then(data => {
       if(data.profile.message === 'Not Found'){
         ui.showAlert('User not found', 'alert alert-danger');
