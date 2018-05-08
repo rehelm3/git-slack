@@ -1,5 +1,5 @@
   $(document).ready(function() {
-    console.log("version: 3.5");
+    console.log("version: 3.6");
 
     // Initialize Firebase
 var config = {
@@ -42,6 +42,7 @@ const database = firebase.database();
             }).done(function(response) {
                 var webhook_url = response.incoming_webhook.url;
                 testURL = webhook_url;
+                console.log(webhook_url);
                 const userRepoBranchCardUI = new UserRepoBranchCard(gitUser, gitRepo, gitBranch, webhook_url);
                 // Push Card Info to Firebase
                 userRepoBranchCardUI.pushToFirebase(userRepoBranchCardUI);
